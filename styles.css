@@ -1,0 +1,279 @@
+/* =========================================================
+   ESTILO BASE DA PÁGINA (cores, tipografia e reset leve)
+   ========================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* inclui padding/borda no cálculo de largura/altura */
+}
+
+html,
+body {
+    margin: 0;
+    /* remove margens padrão do navegador */
+    padding: 0;
+    /* remove paddings padrão */
+}
+
+body {
+    background-color: #f5f6f8;
+    /* fundo neutro e claro */
+    color: #222;
+    /* cor de texto principal */
+    font-family: Arial, Helvetica, sans-serif;
+    /* fonte simples, fácil de ler */
+    line-height: 1.6;
+    /* espaço entre linhas confortável */
+}
+
+/* =========================================================
+      CABEÇALHO (HEADER): título, subtítulo e navegação
+      ========================================================= */
+header {
+    background-color: #ffffff;
+    /* fundo branco para destacar o cabeçalho */
+    border-bottom: 1px solid #e5e5e5;
+    /* linha sutil separando header do conteúdo */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+    /* sombra leve para profundidade */
+    padding: 24px 16px;
+    /* respiro interno */
+    text-align: center;
+    /* centraliza título, subtítulo e menu */
+}
+
+header h1 {
+    margin: 0;
+    /* tira margens extras do h1 */
+    font-size: 2rem;
+    /* tamanho bom para o título */
+}
+
+header p {
+    margin: 6px 0 0 0;
+    /* pequeno espaço abaixo do título */
+    color: #666;
+    /* texto secundário mais claro */
+    font-size: 0.95rem;
+    /* um pouco menor que o corpo do texto */
+}
+
+/* -----------------------------
+      NAVEGAÇÃO (menu do header)
+      ----------------------------- */
+nav ul {
+    list-style: none;
+    /* remove bolinhas da lista */
+    padding: 0;
+    /* remove padding padrão */
+    margin: 14px 0 0 0;
+    /* espaço acima do menu */
+    display: flex;
+    /* coloca itens em linha */
+    gap: 12px;
+    /* espaço entre os itens */
+    justify-content: center;
+    /* centraliza o grupo de links */
+}
+
+nav a {
+    display: inline-block;
+    /* permite padding e borda arredondada */
+    text-decoration: none;
+    /* remove sublinhado dos links */
+    color: #222;
+    /* cor do link */
+    background-color: #ffffff;
+    /* fundo branco (vira “pill”) */
+    border: 1px solid #dddddd;
+    /* borda suave */
+    border-radius: 999px;
+    /* borda arredondada “pílula” */
+    padding: 8px 14px;
+    /* área clicável maior (acessibilidade) */
+    transition: background-color .15s ease;
+    /* leve transição no hover */
+}
+
+nav a:hover {
+    background-color: #f0f0f0;
+    /* realce ao passar o mouse */
+}
+
+/* =========================================================
+      LAYOUT PRINCIPAL (MAIN): GRID RESPONSIVO
+      - Mobile: 1 coluna (tudo empilhado)
+      - Desktop: 2 colunas (conteúdo à esquerda / lateral à direita)
+      ========================================================= */
+main {
+    display: grid;
+    /* usamos grid para organizar as áreas */
+    grid-template-columns: 1fr;
+    /* por padrão (mobile) apenas 1 coluna */
+    gap: 20px;
+    /* espaço entre blocos */
+    padding: 20px 16px;
+    /* respiro interno do main */
+}
+
+/* A partir de 1000px de largura, viramos 2 colunas */
+@media (min-width: 1000px) {
+    main {
+        grid-template-columns: 2fr 1fr;
+        /* coluna maior para conteúdo, menor para lateral */
+        align-items: start;
+        /* alinha topos dos cartões */
+    }
+
+    /* Envia as seções principais para a COLUNA 1 (esquerda) */
+    main>section:nth-of-type(1),
+    /* 1ª section: "Bem-vindo(a)!" */
+    main>section#noticias {
+        /* 2ª section: Notícias */
+        grid-column: 1;
+        /* ocupa coluna da esquerda */
+    }
+
+    /* Envia o ASIDE e a section de CONTATO para a COLUNA 2 (direita) */
+    main>aside,
+    main>section#contato {
+        grid-column: 2;
+        /* ocupa coluna da direita */
+    }
+}
+
+/* =========================================================
+      TÍTULOS DAS SEÇÕES
+      ========================================================= */
+section>h2 {
+    margin: 0 0 12px 0;
+    /* remove margem superior e afasta do conteúdo */
+    font-size: 1.6rem;
+    /* tamanho maior para subtítulos das seções */
+}
+
+/* =========================================================
+      CARDS: ARTICLE e ASIDE (caixas com borda, sombra e padding)
+      ========================================================= */
+article,
+aside {
+    background-color: #ffffff;
+    /* fundo branco para destacar do bg */
+    border: 1px solid #dddddd;
+    /* borda suave */
+    border-radius: 10px;
+    /* cantos arredondados */
+    padding: 16px;
+    /* respiro interno */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .05);
+    /* sombra leve para efeito de “card” */
+}
+
+article h3,
+aside h2 {
+    margin-top: 0;
+    /* remove margem extra no topo do título */
+}
+
+/* Espaço entre múltiplos artigos dentro de uma mesma seção */
+article+article {
+    margin-top: 14px;
+    /* separa “Notícia 1” de “Notícia 2” */
+}
+
+/* =========================================================
+      FORMULÁRIO (Contato): inputs, textarea e botão
+      ========================================================= */
+form {
+    display: grid;
+    /* organiza campos em coluna */
+    gap: 10px;
+    /* espaço vertical entre os campos */
+}
+
+label {
+    font-weight: bold;
+    /* destaque aos rótulos */
+}
+
+/* Estilo dos campos de texto e área de mensagem */
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    /* ocupa toda a largura disponível */
+    padding: 10px;
+    /* respiro interno */
+    border: 1px solid #d0d0d0;
+    /* borda discreta */
+    border-radius: 8px;
+    /* cantos arredondados */
+    background-color: #fff;
+    /* fundo branco */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .03);
+    /* sombra interna sutil */
+}
+
+/* Realce quando o campo recebe foco (acessibilidade) */
+input:focus,
+textarea:focus {
+    outline: none;
+    /* remove contorno padrão do navegador */
+    border-color: #7bb0ff;
+    /* muda cor da borda no foco */
+    box-shadow: 0 0 0 3px #e1edff;
+    /* anel de foco suave */
+}
+
+/* Botão de enviar */
+button {
+    background-color: #2563eb;
+    /* azul */
+    color: #ffffff;
+    /* texto branco */
+    border: none;
+    /* sem borda externa */
+    padding: 10px 14px;
+    /* área clicável */
+    border-radius: 8px;
+    /* cantos arredondados */
+    cursor: pointer;
+    /* cursor de mãozinha */
+}
+
+/* Efeito ao passar o mouse no botão */
+button:hover {
+    background-color: #1f4fc4;
+    /* azul um pouco mais escuro */
+}
+
+/* =========================================================
+      RODAPÉ (FOOTER)
+      ========================================================= */
+footer {
+    background-color: #333333;
+    /* fundo escuro para contraste */
+    color: #ffffff;
+    /* texto claro por cima do fundo escuro */
+    text-align: center;
+    /* centraliza o conteúdo do rodapé */
+    padding: 16px;
+    /* respiro interno */
+    margin-top: 10px;
+    /* separa do conteúdo acima */
+}
+
+/* =========================================================
+      AJUSTES FINOS OPCIONAIS (didáticos)
+      - sinta-se à vontade para comentar/descomentar em aula
+      ========================================================= */
+
+/* Aumenta um pouco o título principal (experimento de tipografia) */
+/* header h1 { font-size: 2.2rem; } */
+
+/* Deixa os links do aside sublinhados (exemplo de estilo local) */
+/* aside a { text-decoration: underline; } */
+
+/* Diminui o raio de borda dos cards (perceber diferença visual) */
+/* article, aside { border-radius: 6px; } */
